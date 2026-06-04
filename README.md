@@ -32,6 +32,7 @@ https://someone12345-debug.github.io/Tugas_gamePer-10/
 ## Screenshot
 ### gambar scene 3D
 <img width="1908" height="883" alt="image" src="https://github.com/user-attachments/assets/ee39a111-86da-4954-93df-3fd000a27e4b" />
+
 ### gambar menampilkan nama objek saat di klik
 <img width="1911" height="883" alt="image" src="https://github.com/user-attachments/assets/a7c5b434-aa01-4093-aca6-2323e8ae9f88" />
 
