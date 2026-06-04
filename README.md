@@ -36,4 +36,8 @@ https://someone12345-debug.github.io/Tugas_gamePer-10/
 ### gambar menampilkan nama objek saat di klik
 <img width="1911" height="883" alt="image" src="https://github.com/user-attachments/assets/a7c5b434-aa01-4093-aca6-2323e8ae9f88" />
 
+### gambar saat klik button masuk VR
+<img width="1905" height="877" alt="image" src="https://github.com/user-attachments/assets/b0039f74-9ed0-4b45-808b-13d4cb91f0b3" />
+
+
 
