@@ -46,8 +46,6 @@ dirLight.castShadow = true;
 dirLight.shadow.mapSize.width = 2048;
 dirLight.shadow.mapSize.height = 2048;
 
-
-// Lantai — dinaikkan supaya keliatan di VR
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(20, 20),
     new THREE.MeshStandardMaterial({
@@ -63,8 +61,7 @@ floor.receiveShadow = true;
 
 scene.add(ambient, dirLight, floor);
 
-
-// Objek 1 - Meja (Box)
+// Objek 1 = Meja 
 const table = new THREE.Mesh(
     new THREE.BoxGeometry(3.5, 0.2, 1.8),
     new THREE.MeshStandardMaterial({
@@ -81,7 +78,7 @@ table.userData.name = 'Meja (Box)';
 scene.add(table);
 
 
-// Objek 2 - Bola Lampu (Sphere)
+// Objek 2 = Bola Lampu 
 const lamp = new THREE.Mesh(
     new THREE.SphereGeometry(0.3, 32, 32),
     new THREE.MeshStandardMaterial({
@@ -100,7 +97,7 @@ lamp.userData.name = 'Lampu (Sphere)';
 scene.add(lamp);
 
 
-// Objek 3 - Gelas (Cylinder)
+// Objek 3 = Gelas 
 const glass = new THREE.Mesh(
     new THREE.CylinderGeometry(0.2, 0.15, 0.6, 32),
     new THREE.MeshStandardMaterial({
@@ -117,7 +114,7 @@ glass.userData.name = 'Gelas (Cylinder)';
 scene.add(glass);
 
 
-// Objek 4 - Cincin (Torus)
+// Objek 4 = Cincin 
 const ring = new THREE.Mesh(
     new THREE.TorusGeometry(0.3, 0.08, 16, 60),
     new THREE.MeshStandardMaterial({
@@ -134,7 +131,7 @@ ring.userData.name = 'Cincin (Torus)';
 scene.add(ring);
 
 
-// Objek 5 - Topi (Cone)
+// Objek 5 = Topi 
 const hat = new THREE.Mesh(
     new THREE.ConeGeometry(0.4, 0.8, 32),
     new THREE.MeshStandardMaterial({
@@ -150,10 +147,7 @@ hat.receiveShadow = true;
 hat.userData.name = 'Topi (Cone)';
 scene.add(hat);
 
-
-// Semua objek interaktif
 const objects = [ table, lamp, glass, ring, hat ];
-
 
 // OrbitControls
 const controls = new OrbitControls(
@@ -250,18 +244,12 @@ let t = 0;
 renderer.setAnimationLoop(() => {
 
     t += 0.02;
-
-    // lampu naik turun
     lamp.position.y = 3 + Math.sin(t) * 0.8;
-
-    // cincin berputar
     ring.rotation.x += 0.03;
     ring.rotation.y += 0.03;
-
-    // gelas berputar pelan
+    
     glass.rotation.y += 0.02;
 
-    // topi berputar
     hat.rotation.y += 0.025;
 
     controls.update();
