@@ -27,7 +27,7 @@ Ruangan Interior 3d menggunakan Three.js dengan 5 objek yang berbeda beda. setia
 ## Cara Menjalankan
 buka link yang ada di bawah ini di browser :
 
-https://kiroodevs.github.io/Tugas_gamePer-10/
+https://kiroodevs.github.io/TugasGame_P10_RuanganInterior3D/
 
 ## Screenshot
 ### gambar scene 3D
