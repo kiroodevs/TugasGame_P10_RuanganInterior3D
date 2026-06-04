@@ -6,7 +6,6 @@
 
 ## Cara Menjalankan
 buka link yang ada di bawah ini di browser :
-
 https://kiroodevs.github.io/TugasGame_P10_RuanganInterior3D/
 
 ## Screenshot
