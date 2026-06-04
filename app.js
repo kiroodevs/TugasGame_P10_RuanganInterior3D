@@ -17,7 +17,7 @@ const camera = new THREE.PerspectiveCamera(
     1000
 );
 
-camera.position.set(0, 4, 10);
+camera.position.set(0, 2.5, 8);
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.getElementById('c'),
@@ -46,11 +46,13 @@ dirLight.castShadow = true;
 dirLight.shadow.mapSize.width = 2048;
 dirLight.shadow.mapSize.height = 2048;
 
+
+// Lantai
 const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(20, 20),
+    new THREE.PlaneGeometry(30, 30),
     new THREE.MeshStandardMaterial({
-        color: 0x4a3728,
-        roughness: 0.9,
+        color: 0x2B2F3A,
+        roughness: 0.8,
         metalness: 0.0
     })
 );
@@ -61,93 +63,60 @@ floor.receiveShadow = true;
 
 scene.add(ambient, dirLight, floor);
 
-// Objek 1 = Meja 
-const table = new THREE.Mesh(
-    new THREE.BoxGeometry(3.5, 0.2, 1.8),
-    new THREE.MeshStandardMaterial({
-        color: 0x8B5E3C,
-        roughness: 0.8,
-        metalness: 0.0
-    })
-);
 
-table.position.set(0, 0.8, -2);
-table.castShadow =
-table.receiveShadow = true;
-table.userData.name = 'Meja (Box)';
-scene.add(table);
+// 5 Objek ruangan interior
+const geoList = [
+    new THREE.BoxGeometry(0.9, 1.4, 0.5),
+    new THREE.TorusGeometry(0.45, 0.08, 16, 60),
+    new THREE.SphereGeometry(0.4, 32, 32),
+    new THREE.CylinderGeometry(0.1, 0.1, 1.2, 32),
+    new THREE.ConeGeometry(0.6, 0.8, 32)
+];
 
+const colors = [
+    0x7B5B3A,
+    0xC0C0C0,
+    0xFFE066,
+    0x888888,
+    0xB05030
+];
 
-// Objek 2 = Bola Lampu 
-const lamp = new THREE.Mesh(
-    new THREE.SphereGeometry(0.3, 32, 32),
-    new THREE.MeshStandardMaterial({
-        color: 0xFFE066,
-        roughness: 0.1,
-        metalness: 0.0,
-        emissive: 0xFFE066,
-        emissiveIntensity: 0.6
-    })
-);
+const roughVals = [ 0.9, 0.3, 0.1, 0.5, 0.7 ];
+const metalVals = [ 0.0, 0.8, 0.0, 0.6, 0.0 ];
 
-lamp.position.set(0, 3, -2);
-lamp.castShadow =
-lamp.receiveShadow = true;
-lamp.userData.name = 'Lampu (Sphere)';
-scene.add(lamp);
+const names = [
+    'Lemari (Box)',
+    'Jam Dinding (Torus)',
+    'Lampu Gantung (Sphere)',
+    'Tiang Lampu (Cylinder)',
+    'Atap Rumah (Cone)'
+];
 
+const objects = [];
 
-// Objek 3 = Gelas 
-const glass = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.2, 0.15, 0.6, 32),
-    new THREE.MeshStandardMaterial({
-        color: 0x88CCEE,
-        roughness: 0.1,
-        metalness: 0.2
-    })
-);
+geoList.forEach((geo, i) => {
 
-glass.position.set(0.8, 1.2, -2);
-glass.castShadow =
-glass.receiveShadow = true;
-glass.userData.name = 'Gelas (Cylinder)';
-scene.add(glass);
+    const mesh = new THREE.Mesh(
+        geo,
+        new THREE.MeshStandardMaterial({
+            color: colors[i],
+            roughness: roughVals[i],
+            metalness: metalVals[i]
+        })
+    );
 
+    mesh.position.set((i - 2) * 2.5, 1.5, -2);
 
-// Objek 4 = Cincin 
-const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.08, 16, 60),
-    new THREE.MeshStandardMaterial({
-        color: 0xE8B84B,
-        roughness: 0.3,
-        metalness: 0.9
-    })
-);
+    mesh.castShadow =
+    mesh.receiveShadow = true;
 
-ring.position.set(-0.8, 1.2, -2);
-ring.castShadow =
-ring.receiveShadow = true;
-ring.userData.name = 'Cincin (Torus)';
-scene.add(ring);
+    mesh.userData.name = names[i];
 
+    scene.add(mesh);
+    objects.push(mesh);
 
-// Objek 5 = Topi 
-const hat = new THREE.Mesh(
-    new THREE.ConeGeometry(0.4, 0.8, 32),
-    new THREE.MeshStandardMaterial({
-        color: 0xC0392B,
-        roughness: 0.7,
-        metalness: 0.0
-    })
-);
+});
 
-hat.position.set(0, 1.4, -2.5);
-hat.castShadow =
-hat.receiveShadow = true;
-hat.userData.name = 'Topi (Cone)';
-scene.add(hat);
-
-const objects = [ table, lamp, glass, ring, hat ];
 
 // OrbitControls
 const controls = new OrbitControls(
@@ -239,18 +208,16 @@ window.addEventListener('click', () => {
 
 
 // Animation Loop
-let t = 0;
-
 renderer.setAnimationLoop(() => {
 
-    t += 0.02;
-    lamp.position.y = 3 + Math.sin(t) * 0.8;
-    ring.rotation.x += 0.03;
-    ring.rotation.y += 0.03;
-    
-    glass.rotation.y += 0.02;
+    objects.forEach(o => {
 
-    hat.rotation.y += 0.025;
+        if(o === selected) return;
+
+        o.rotation.y += 0.01;
+        o.rotation.x += 0.005;
+
+    });
 
     controls.update();
     renderer.render(scene, camera);
